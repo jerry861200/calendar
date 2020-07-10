@@ -1,0 +1,21 @@
+// $date-picker-table-active-date-color : 'yellow';
+
+
+
+
+// $calendar-daily-interval-gutter-line-width : 0px;
+
+
+.v-calendar{
+  background-color: white;
+}
+
+// $phones-media:420px;
+
+// @mixin phone-width() {
+//   @media all and (max-width: $phones-media) {
+//           $calendar-daily-interval-gutter-line-width:4px;
+//     }
+// }
+
+$calendar-daily-interval-gutter-line-width:4px;

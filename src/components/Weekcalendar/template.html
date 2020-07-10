@@ -1,0 +1,147 @@
+
+<div>
+  <v-row class="fill-height " justify="center">
+    <v-col >
+      
+      <v-sheet height="64">
+        <v-toolbar flat color="white">
+          
+          <router-link to="/">
+  <v-btn class="mx-2" color="secondary" fab small depressed="" >
+  
+            <v-icon color="primary">
+              mdi-calendar-blank
+            </v-icon>
+            
+          </v-btn>
+        </router-link>
+          
+          <v-toolbar-title >
+            預約行事曆
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+  
+           
+          <v-menu bottom right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                depressed=""
+                color="#DEDAF4"
+                v-bind="attrs"
+                v-on="on"
+                
+              >
+                <span class="primary--text">{{ typeToLabel[type] }}</span>
+                <v-icon right class="primary--text">mdi-menu-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list color="secondary">
+              <v-list-item @click="type = 'day'">
+                <v-list-item-title class="primary--text">Day</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="type = 'week'">
+                <v-list-item-title class="primary--text">Week</v-list-item-title>
+              </v-list-item>
+              
+            </v-list>
+          </v-menu>
+          <!-- line button -->
+          <!-- <linebutton v-if="!accountname" @click="loginEvent" class="mx-2"/> -->
+          <v-btn
+          v-if="!accountname" @click="loginEvent" class="mx-2 primary--text" color="secondary" depressed 
+          >
+            登入
+          </v-btn>
+          <v-btn v-else class="mx-2 primary--text" color="secondary"
+            depressed 
+          > {{accountname}} </v-btn>
+        </v-toolbar>
+      </v-sheet>
+  
+  <!-- Add events dialog -->
+  
+  <v-dialog v-model="dialog" max-width="500">
+  <v-card>
+    <v-container>
+      <v-form @submit.prevent="addEvent">
+        <v-text-field v-model="name" type="text" label="event name(required)"></v-text-field>
+        <v-text-field v-model="details" type="text" label="detail"></v-text-field>
+        <v-text-field v-model="start" type="date" label="start(required)"></v-text-field>
+        <v-text-field v-model="end" type="date" label="end (required)"></v-text-field>
+        <!-- <v-text-field v-model="color" type="color" label="color(click me to open color menu)"></v-text-field> -->
+        <v-btn type="submit" color="primary" class="mr-4" @click.stop="dialog=false">確定</v-btn>
+      </v-form>
+    </v-container>
+  </v-card>
+  </v-dialog>
+  
+      <v-sheet height="600">
+        <v-calendar
+          ref="calendar"
+          class="grey lighten-4"
+          v-model="focus"
+          interval-width="45"
+          color=""
+          :events="events"
+          :event-color="getEventColor"
+          :type="type"
+          
+          @click:event="showEvent"
+          @click:more="viewDay"
+          @click:date="viewDay"
+          
+          
+        ></v-calendar>
+        
+        <v-menu
+          v-model="selectedOpen"
+          :close-on-content-click="false"
+          :activator="selectedElement"
+          offset-x
+        >
+          <v-card
+            color="grey lighten-4"
+            min-width="350px"
+            flat
+          >
+            <v-toolbar
+              :color="selectedEvent.color"
+              dark
+            >
+              <v-btn icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-btn icon>
+                <v-icon>mdi-heart</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </v-toolbar>
+            <v-card-text>
+              <span v-html="selectedEvent.details"></span>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                text
+                color="secondary"
+                @click="selectedOpen = false"
+              >
+                Cancel
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-menu>
+      </v-sheet>
+      <!-- 新增事件 -->
+      <v-footer>
+  <v-btn class="center" color="#7f74B7" @click="dialog = true" dark>
+          新增事件
+        </v-btn>
+      </v-footer>
+      
+    </v-col>
+  </v-row>
+</div>

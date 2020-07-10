@@ -1,0 +1,29 @@
+.theme--light.v-calendar-daily .v-calendar-daily__intervals-head{
+  border-right: none;
+  border-top: none;
+  background-color: white;
+}
+
+.theme--light.v-calendar-daily .v-calendar-daily_head-day{
+  border-right: none;
+  background-color: white;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+.center{
+  margin: 0 auto
+}
+
+@media(max-width: 414px){
+  .v-btn--fab.v-size--default{
+    height: 40px;
+    width: 40px;
+  }
+
+  v-menu > template > v-btn{
+    width: 80px;
+  }
+}
